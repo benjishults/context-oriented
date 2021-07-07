@@ -10,7 +10,7 @@ val gradlePluginsUrl = "https://plugins.gradle.org/m2/"
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.4.20"
+    id("org.jetbrains.kotlin.jvm") version "1.5.10"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -20,8 +20,8 @@ val compileKotlin: KotlinCompile by tasks
 
 compileKotlin.kotlinOptions.suppressWarnings = true
 compileKotlin.kotlinOptions.jvmTarget = "11"
-compileKotlin.kotlinOptions.apiVersion = "1.4"
-compileKotlin.kotlinOptions.languageVersion = "1.4"
+compileKotlin.kotlinOptions.apiVersion = "1.5"
+compileKotlin.kotlinOptions.languageVersion = "1.5"
 compileKotlin.kotlinOptions.freeCompilerArgs = listOf("-Xjvm-default=all")
 compileKotlin.sourceCompatibility = "11"
 compileKotlin.targetCompatibility = "11"
