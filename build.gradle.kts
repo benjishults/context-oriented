@@ -56,6 +56,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.31")
     implementation("io.dropwizard.metrics:metrics-core:4.2.2")
     implementation("io.ratpack:ratpack-core:1.8.2")
+    implementation("io.ratpack:ratpack-test:1.8.2")
     implementation("smartthings.siam.client:siam-client-ratpack:1.0.3") {
         exclude(group = "com.google.guava", module = "guava")
         exclude(group = "io.ratpack", module = "ratpack-dropwizard-metrics")
