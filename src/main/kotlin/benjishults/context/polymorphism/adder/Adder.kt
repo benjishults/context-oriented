@@ -8,7 +8,8 @@ import kotlin.random.Random
 // TODO maybe "funny arithmetic" with nonsense implementations?
 
 interface Adder {
-    fun Double.add(other: Double): Double = this + other
+    fun Double.add(other: Double): Double =
+        this + other
 
     fun sum(vararg numbs: Double) =
         // here, we're able to use `add` because we in an Adder
@@ -16,7 +17,8 @@ interface Adder {
 }
 
 object Subtracter : Adder {
-    override fun Double.add(other: Double): Double = this - other
+    override fun Double.add(other: Double): Double =
+        this - other
 }
 
 class CrazyAdder : Adder {

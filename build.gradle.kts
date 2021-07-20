@@ -51,6 +51,7 @@ dependencies {
 
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
 
     implementation("smartthings:st-slf4j:${slf4jVersion}")
     implementation("org.slf4j:slf4j-api:1.7.31")
