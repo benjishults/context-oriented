@@ -2,18 +2,14 @@ package benjishults.context.polymorphism.adder
 
 import kotlin.random.Random
 
-// TODO to illustrate polymorphism, have an interface with a member extension function and multiple implementations
-//      of the interface
-
-// TODO maybe "funny arithmetic" with nonsense implementations?
-
 interface Adder {
     fun Double.add(other: Double): Double =
         this + other
 
     fun sum(vararg numbs: Double) =
-        // here, we're able to use `add` because we in an Adder
-        numbs.reduce { acc, next -> acc.add(next) }
+        numbs.reduce { acc, next ->
+            acc.add(next)
+        }
 }
 
 object Subtracter : Adder {
@@ -22,15 +18,22 @@ object Subtracter : Adder {
 }
 
 class CrazyAdder : Adder {
-    override fun Double.add(other: Double): Double =
-        Random(43).nextDouble(other)
+    val random = Random(43)
+    override fun Double.add(other: Double): Double {
+        return random.nextDouble(other)
+    }
 }
 
 class Maths : Adder {
+
     fun epsilon(init: Int, max: Int, expr: (Int) -> Double): Double {
         require(init <= max)
-        // here, we're able to use `add` because we in an Adder
-        return (init..max).map(expr).reduce { acc, next -> acc.add(next) }
+        return (init..max)
+            .map(expr)
+            .reduce { acc, next ->
+                // here, we're able to use `add` because we are in an Adder
+                acc.add(next)
+            }
     }
 
 }

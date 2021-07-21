@@ -27,10 +27,10 @@ interface RatpackScope {
 
 }
 
-// This illustrates using `with` for context-oriented programming
 
 fun main(args: Array<String>) {
 
+    // using `with` for context-oriented programming
     ExecHarness.harness().use { harness ->
         harness.`yield` {
             with(RatpackScope) {
