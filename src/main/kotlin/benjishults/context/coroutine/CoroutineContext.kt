@@ -8,29 +8,32 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-fun CoroutineScope.printCoroutineContext(name: String) {
+fun CoroutineScope.printCoroutineScope(name: String) {
     println()
-    println("$name:          $this")
-    println("$name context:  ${this.coroutineContext}")
+    println("$name         : $this")
+    println("$name context : ${this.coroutineContext}")
     println()
     coroutineContext.fold(Unit) { _, element: CoroutineContext.Element ->
-        println("$name key:      ${element.key}")
-        println("$name value:    $element")
+        println("$name key     : ${element.key}")
+        println("$name value   : $element")
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
 
     runBlocking {
-        printCoroutineContext("outer")
+        printCoroutineScope("     outer")
+
         launch {
-            printCoroutineContext("launch")
+            printCoroutineScope("    launch")
         }
+
         coroutineScope {
-            printCoroutineContext("scope")
+            printCoroutineScope("     scope")
         }
+
         withContext(Dispatchers.Unconfined) {
-            printCoroutineContext("async")
+            printCoroutineScope("unconfined")
         }
     }
 
