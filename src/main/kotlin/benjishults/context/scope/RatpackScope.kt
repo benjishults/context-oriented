@@ -27,7 +27,6 @@ interface RatpackScope {
 
 }
 
-
 fun main(args: Array<String>) {
 
     // using `with` for context-oriented programming
@@ -44,15 +43,4 @@ fun main(args: Array<String>) {
             .valueOrThrow
     }
 
-    // we can also implement the `RatpackScope` interface to get access to its methods.
-    object : RatpackScope {
-
-        fun <T> Promise<T>.foo(): Promise<T> =
-            nextOpIf({ it == "hello" },
-                { throw Error() },
-                { println("good") })
-
-    }
-
 }
-

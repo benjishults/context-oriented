@@ -3,6 +3,7 @@ package benjishults.context.polymorphism.adder
 import kotlin.random.Random
 
 interface Adder {
+
     fun Double.add(other: Double): Double =
         this + other
 
@@ -10,18 +11,24 @@ interface Adder {
         numbs.reduce { acc, next ->
             acc.add(next)
         }
+
 }
 
 object Subtracter : Adder {
+
     override fun Double.add(other: Double): Double =
         this - other
+
 }
 
 class CrazyAdder : Adder {
-    val random = Random(43)
+
+    private val random = Random(43)
+
     override fun Double.add(other: Double): Double {
         return random.nextDouble(other)
     }
+
 }
 
 class Maths : Adder {
@@ -40,6 +47,14 @@ class Maths : Adder {
 
 fun main(args: Array<String>) {
 
+    println(
+        listOf<Adder>(object : Adder {}, Subtracter, CrazyAdder())
+            .map {
+                with(it) {
+                    7.0.add(4.0)
+                }
+            })
+
     with(object : Adder {}) {
         check(sum(2.0, 2.0, 2.0, 2.0, 2.0) == 10.0)
     }
@@ -51,14 +66,6 @@ fun main(args: Array<String>) {
     with(CrazyAdder()) {
         check(7.0.add(23.0) == 13.206839527806123)
     }
-
-    println(
-        listOf<Adder>(object : Adder {}, Subtracter, CrazyAdder())
-            .map {
-                with(it) {
-                    7.0.add(4.0)
-                }
-            })
 
     val maths = Maths()
     check(
