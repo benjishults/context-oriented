@@ -24,25 +24,25 @@ fun main() {
         "0000000000" to 10
     )
 
-    // I found myself writing a lot of code following a pattern:
+    // (Pretend Kotlin doesn't have an `associate` function.)
+    // I find myself writing a lot of code following this pattern:
     val howItStarted = userInfosIterable.fold(mutableMapOf()) { runningMap: MutableMap<String, Int>, item: UserInfo ->
         runningMap[item.name] = item.id
         runningMap
     }
 
-    // Then I got this which is better:
+    // Then I get this which is better but still not deeply context-oriented
     val howItWent = userInfosIterable.howItWent { runningMap: MutableMap<String, Int>, item: UserInfo ->
         runningMap[item.name] = item.id
     }
 
     // And finally--using context-oriented programming:
-    val actual1: Map<String, Int> = userInfosIterable.toMap { this[it.name] = it.id }
+    val actual1: Map<String, Int> = userInfosIterable.toMap {
+        this[it.name] = it.id
+    }
     val actual2: Map<String, Int> = userInfosIterable.toMap { put(it.name, it.id) }
 
-    check(expected == actual1)
-    check(expected == actual2)
-    check(expected == howItStarted)
-    check(expected == howItWent)
+    runChecks(expected, actual1, actual2, howItStarted, howItWent)
 
 }
 
@@ -74,3 +74,17 @@ fun <T, R, U> Iterable<T>.toMutableMap(accumulator: MutableMap<R, U>.(T) -> Unit
         runningMap.accumulator(item)
         runningMap
     }
+
+private fun runChecks(
+    expected: Map<String, Int>,
+    actual1: Map<String, Int>,
+    actual2: Map<String, Int>,
+    howItStarted: MutableMap<String, Int>,
+    howItWent: MutableMap<String, Int>
+) {
+    check(expected == actual1)
+    check(expected == actual2)
+    check(expected == howItStarted)
+    check(expected == howItWent)
+}
+

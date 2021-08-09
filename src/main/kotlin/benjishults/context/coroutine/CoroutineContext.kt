@@ -22,18 +22,18 @@ fun CoroutineScope.printCoroutineScope(name: String) {
 fun main() {
 
     runBlocking {
-        printCoroutineScope("     outer")
+        this.printCoroutineScope("     outer")
 
         launch {
-            printCoroutineScope("    launch")
+            this.printCoroutineScope("    launch")
         }
 
         coroutineScope {
-            printCoroutineScope("     scope")
+            this.printCoroutineScope("     scope")
         }
 
         withContext(Dispatchers.Unconfined) {
-            printCoroutineScope("unconfined")
+            this.printCoroutineScope("unconfined")
         }
     }
 
