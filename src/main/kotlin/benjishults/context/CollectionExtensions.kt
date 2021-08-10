@@ -54,16 +54,6 @@ fun <T, R, U> Iterable<T>.howItWent(block: (MutableMap<R, U>, T) -> Unit): Mutab
 
 /**
  * Creates a MutableMap and calls [accumulator] on that map with each element of the [Iterable]
- * returning the resulting map as a [Map]
- * @param accumulator a function operating on a [MutableMap]<[R], [U]> and taking an item from
- * the [Iterable]<[T]>.  It is expected that this function will alter the [MutableMap] usually
- * by inserting a pair.
- */
-fun <T, R, U> Iterable<T>.toMap(accumulator: MutableMap<R, U>.(T) -> Unit): Map<R, U> =
-    this.toMutableMap(accumulator).toMap()
-
-/**
- * Creates a MutableMap and calls [accumulator] on that map with each element of the [Iterable]
  * returning the resulting map.
  * @param accumulator a function operating on a [MutableMap]<[R], [U]> and taking an item from
  * the [Iterable]<[T]>.  It is expected that this function will alter the [MutableMap] usually
@@ -74,6 +64,16 @@ fun <T, R, U> Iterable<T>.toMutableMap(accumulator: MutableMap<R, U>.(T) -> Unit
         runningMap.accumulator(item)
         runningMap
     }
+
+/**
+ * Creates a MutableMap and calls [accumulator] on that map with each element of the [Iterable]
+ * returning the resulting map as a [Map]
+ * @param accumulator a function operating on a [MutableMap]<[R], [U]> and taking an item from
+ * the [Iterable]<[T]>.  It is expected that this function will alter the [MutableMap] usually
+ * by inserting a pair.
+ */
+fun <T, R, U> Iterable<T>.toMap(accumulator: MutableMap<R, U>.(T) -> Unit): Map<R, U> =
+    this.toMutableMap(accumulator).toMap()
 
 private fun runChecks(
     expected: Map<String, Int>,
