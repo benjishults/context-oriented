@@ -22,7 +22,7 @@ interface RatpackScope {
 
 }
 
-fun main(args: Array<String>) {
+fun main() {
 
     // using `with` for context-oriented programming
     ExecHarness.harness().use { harness ->

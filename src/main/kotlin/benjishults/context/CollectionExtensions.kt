@@ -7,9 +7,9 @@ fun main() {
         val name: String
     )
 
-    val userInfosIterable: Iterable<UserInfo> = (1..10).map { UserInfo(it, "0".repeat(it)) }
+    val userInfos: Iterable<UserInfo> = (1..10).map { UserInfo(it, "0".repeat(it)) }
 
-    println(userInfosIterable)
+    println(userInfos)
 
     val expected: Map<String, Int> = mapOf(
         "0" to 1,
@@ -26,21 +26,21 @@ fun main() {
 
     // (Pretend Kotlin doesn't have an `associate` function.)
     // I find myself writing a lot of code following this pattern:
-    val howItStarted = userInfosIterable.fold(mutableMapOf()) { runningMap: MutableMap<String, Int>, item: UserInfo ->
+    val howItStarted = userInfos.fold(mutableMapOf()) { runningMap: MutableMap<String, Int>, item: UserInfo ->
         runningMap[item.name] = item.id
         runningMap
     }
 
     // Then I get this which is better but still not deeply context-oriented
-    val howItWent = userInfosIterable.howItWent { runningMap: MutableMap<String, Int>, item: UserInfo ->
+    val howItWent = userInfos.howItWent { runningMap: MutableMap<String, Int>, item: UserInfo ->
         runningMap[item.name] = item.id
     }
 
     // And finally--using context-oriented programming:
-    val actual1: Map<String, Int> = userInfosIterable.toMap {
+    val actual1: Map<String, Int> = userInfos.toMap {
         this[it.name] = it.id
     }
-    val actual2: Map<String, Int> = userInfosIterable.toMap { put(it.name, it.id) }
+    val actual2: Map<String, Int> = userInfos.toMap { put(it.name, it.id) }
 
     runChecks(expected, actual1, actual2, howItStarted, howItWent)
 
@@ -87,4 +87,3 @@ private fun runChecks(
     check(expected == howItStarted)
     check(expected == howItWent)
 }
-
